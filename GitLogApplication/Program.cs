@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace GitLogApplication
             {
                 log = Util.Helper.ListLog(path);
                 List<GitCommits> l = Util.Helper.ParseLogs(log);
+                
             }
             catch(Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,18 @@ namespace GitLogApplication.Util
 
                     if (line.StartsWith("Date:"))
                     {
-                        commit.Date = line.After("Date:  ");
+                        string stringDate = line.After("Date:   ");
+
+                        DateTime date;
+                        DateTime.TryParseExact(
+                            stringDate,
+                            "ddd MMM d HH:mm:ss yyyy K",
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            System.Globalization.DateTimeStyles.None,
+                            out date
+                        );
+                        commit.Date = date.ToString();
+                        
                     }
 
                     if (line.Length > 0 && line[3] == ' ')
@@ -90,7 +102,6 @@ namespace GitLogApplication.Util
             }
             return value.Substring(adjustedPosA);
         }
-
         #endregion
     }
 }
