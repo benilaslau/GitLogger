@@ -47,6 +47,11 @@ namespace GitLogApplication.Util
                         commit.Date = line.After("Date:  ");
                     }
 
+                    if (line.Length > 0 && line[3] == ' ')
+                    {
+                        commit.Message = line.After("    ");
+                    }
+
                 } while (reader.Peek() != -1);
             }
             return commits;
@@ -70,6 +75,7 @@ namespace GitLogApplication.Util
             return output;
         }
 
+        // method to read after a string value
         private static string After(this string value, string a)
         {
             int posA = value.LastIndexOf(a);
