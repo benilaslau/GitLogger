@@ -45,18 +45,8 @@ namespace GitLogApplication.Util
 
                     if (line.StartsWith("Date:"))
                     {
-                        string stringDate = line.After("Date:   ");
-
-                        DateTime date;
-                        DateTime.TryParseExact(
-                            stringDate,
-                            "ddd MMM d HH:mm:ss yyyy K",
-                            System.Globalization.CultureInfo.InvariantCulture,
-                            System.Globalization.DateTimeStyles.None,
-                            out date
-                        );
-                        commit.Date = date.ToString();
-                        
+                        string gitDate = line.After("Date:   ");
+                        commit.Date = FormateGitDate(gitDate);                        
                     }
 
                     if (line.Length > 0 && line[3] == ' ')
@@ -67,6 +57,19 @@ namespace GitLogApplication.Util
                 } while (reader.Peek() != -1);
             }
             return commits;
+        }
+
+        public static List<GitCommits> RetrieveCommitsAfterDate(DateTime date, List<GitCommits> commits)
+        {
+            List<GitCommits> commitsAfterDate = new List<GitCommits>();
+            foreach(var commit in commits)
+            {
+                if(commit.Date> date)
+                {
+                    commitsAfterDate.Add(commit);
+                }
+            }
+            return commitsAfterDate;
         }
         #endregion
 
@@ -101,6 +104,19 @@ namespace GitLogApplication.Util
                 return "";
             }
             return value.Substring(adjustedPosA);
+        }
+
+        private static DateTime FormateGitDate(string gitDate)
+        {
+            DateTime date;
+            DateTime.TryParseExact(
+                gitDate,
+                "ddd MMM d HH:mm:ss yyyy K",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out date
+            );
+            return date;
         }
         #endregion
     }

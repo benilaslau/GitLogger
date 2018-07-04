@@ -12,12 +12,11 @@ namespace GitLogApplication
         {
             CommitHash = "";
             Author = "";
-            Date = "";
             Message = "";
         }
         public string CommitHash { get; set; }
         public string Author { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public string Message { get; set; }
 
     }

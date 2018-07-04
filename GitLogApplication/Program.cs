@@ -17,8 +17,13 @@ namespace GitLogApplication
             try
             {
                 log = Util.Helper.ListLog(path);
-                List<GitCommits> l = Util.Helper.ParseLogs(log);
-                
+                List<GitCommits> listCmts = Util.Helper.ParseLogs(log);
+                string date = "7/3/2018 2:30:50 PM";
+                DateTime dt = DateTime.Parse(date);
+                List<GitCommits> cmtsAfterDate = Util.Helper.RetrieveCommitsAfterDate(dt, listCmts);
+                PrintToSreen(cmtsAfterDate);
+
+
             }
             catch(Exception ex)
             {
@@ -26,7 +31,14 @@ namespace GitLogApplication
                 Console.WriteLine(ex.ToString());
             }
             Console.ReadKey();
+        }
 
+        public static void PrintToSreen(List<GitCommits> listgit)
+        {
+            foreach(var c in listgit)
+            {
+                Console.WriteLine("commit: {0}\n Author: {1}\n Date: {2}\n Message: {3}\n", c.CommitHash, c.Author, c.Date.ToString(), c.Message);
+            }
         }
     }
 }
