@@ -16,7 +16,7 @@ namespace GitLogApplication
             try
             {
                 log = Util.Helper.ListLog(path);
-                Console.WriteLine(log);
+                List<GitCommits> l = Util.Helper.ParseLogs(log);
             }
             catch(Exception ex)
             {
