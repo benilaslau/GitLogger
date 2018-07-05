@@ -68,5 +68,14 @@ namespace GitLogApplication {
                 return ResourceManager.GetString("GitExectuable", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\blaslau\source\repos\CalculatorSolution\.
+        /// </summary>
+        public static string RepoPath {
+            get {
+                return ResourceManager.GetString("RepoPath", resourceCulture);
+            }
+        }
     }
 }

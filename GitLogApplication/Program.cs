@@ -18,7 +18,6 @@ namespace GitLogApplication
             }
             catch(Exception ex)
             {
-
                 Console.WriteLine(ex.ToString());
             }
             Console.ReadKey();
@@ -27,7 +26,7 @@ namespace GitLogApplication
         public static void ShowTheLogs()
         {
             Logs logs = new Logs();
-            logs.Path = @"C:\Users\blaslau\source\repos\CalculatorSolution\";
+            logs.Path = Config.RepoPath.Replace("\\", "/");
             Console.WriteLine("1.Show all logs.\n2.Show after date.");
             int option = Convert.ToInt16(Console.ReadLine());
             if(option == 1)
@@ -37,15 +36,8 @@ namespace GitLogApplication
             if(option == 2)
             {
                ValidateDate(logs);
-                DateTime date = logs.StartDate;
                logs.PrintToSreen(logs.GitCommitListAfterDate);
-
-            }
-            //
-            //string date = Console.ReadLine();
-            //Console.WriteLine();
-            //logs.StartDate = DateTime.Parse(date);
-            
+            }            
         }
 
         public static void ValidateDate(Logs logs)
@@ -59,7 +51,7 @@ namespace GitLogApplication
             }
             else
             {
-                ValidateDate(logs);
+                ValidateDate(logs); // if date was not valid
             }
         }
     }

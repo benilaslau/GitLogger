@@ -79,8 +79,6 @@ namespace GitLogApplication.Util
         }
         #endregion
 
-
-
         #region private methods
         private static string RunProcess(string command)
         {
