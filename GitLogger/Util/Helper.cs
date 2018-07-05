@@ -85,7 +85,7 @@ namespace GitLogger.Util
             Process p = new Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = 
+            p.StartInfo.FileName = Config.GitExectuable.Replace("\\", "/"); 
             p.StartInfo.Arguments = command;
             p.Start();
             // Read the output stream first and then wait.
