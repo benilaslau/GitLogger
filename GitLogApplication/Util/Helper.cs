@@ -16,7 +16,7 @@ namespace GitLogApplication.Util
         public static string ListLog(string path)
         {
             //git --git-dir=/mycode/.git --work-tree=/mycode log ?? --name-status
-            var output = RunProcess(string.Format(" --git-dir={0}/.git --work-tree={1} log", path.Replace("\\", "/"), path.Replace("\\", "/")));
+            var output = RunProcess(string.Format(" --git-dir={0}/.git --work-tree={1} log --name-status", path.Replace("\\", "/"), path.Replace("\\", "/")));
             return output;
         }
 
@@ -52,6 +52,12 @@ namespace GitLogApplication.Util
                     if (line.Length > 0 && line[3] == ' ')
                     {
                         commit.Message = line.After("    ");
+                    }
+                    if (line.Length > 1 && Char.IsLetter(line[0]) && line[1] == '\t')
+                    {
+                        var status = line.Split('\t')[0];
+                        var file = line.Split('\t')[1];
+                        commit.Files.Add(new FileStatus() { Status = status, FileName = file });
                     }
 
                 } while (reader.Peek() != -1);

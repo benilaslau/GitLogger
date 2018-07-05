@@ -47,7 +47,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Config.resx</DependentUpon>
     </Compile>
-    <Compile Include="GitCommits.cs" />
+    <Compile Include="Git\FileStatus.cs" />
+    <Compile Include="Git\GitCommits.cs" />
+    <Compile Include="Git\Logs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Helper.cs" />

@@ -10,6 +10,7 @@ namespace GitLogApplication
     {
         public GitCommits()
         {
+            Files = new List<FileStatus>();
             CommitHash = "";
             Author = "";
             Message = "";
@@ -18,6 +19,8 @@ namespace GitLogApplication
         public string Author { get; set; }
         public DateTime Date { get; set; }
         public string Message { get; set; }
+        public List<FileStatus> Files { get; set; }
+
 
     }
 }
