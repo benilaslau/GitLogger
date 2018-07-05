@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GitLogger;
 
 namespace GitLogApplication
 {
@@ -45,6 +46,7 @@ namespace GitLogApplication
             Console.WriteLine("Enter a date after you want to see logs.\nFormat is MM/dd/yyyy HH:mm:ss ");
             string date = Console.ReadLine();
             DateTime datetime;            
+
             if (DateTime.TryParse(date, out datetime))
             {
                 logs.StartDate = datetime;

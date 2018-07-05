@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitLogApplication
+namespace GitLogger
 {
     public class Logs
     {
@@ -33,16 +33,18 @@ namespace GitLogApplication
         {
             get { return _path; }
             set { _path = value; }
-        }       
+        }
 
         public List<GitCommits> GitCommitsList
         {
-            get {
+            get
+            {
                 if (!string.IsNullOrEmpty(LogResult))
                 {
                     _gitCommits = Util.Helper.ParseLogs(LogResult);
                 }
-                return _gitCommits; }
+                return _gitCommits;
+            }
             set { _gitCommits = value; }
         }
 
