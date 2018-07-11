@@ -16,7 +16,8 @@ namespace GitLogger.Util
         public static string ListLog(string path)
         {
             //git --git-dir=/mycode/.git --work-tree=/mycode log ?? --name-status
-            var output = RunProcess(string.Format(" --git-dir={0}/.git --work-tree={1} log --name-status", path.Replace("\\", "/"), path.Replace("\\", "/")));
+            const string command = " --git-dir={0}/.git --work-tree={1} log --name-status";
+            var output = RunProcess(string.Format(command, path.Replace("\\", "/"), path.Replace("\\", "/")));
             return output;
         }
 
