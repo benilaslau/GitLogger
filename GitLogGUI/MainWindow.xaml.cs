@@ -29,8 +29,9 @@ namespace GitLogGUI
         private void ShowAllLogs_Click(object sender, RoutedEventArgs e)
         {
             LogsText.Text = "";
-            Logs logs = new Logs();
-            logs.Path = Config.RepoPath.Replace("\\", "/");
+            string path = Config.RepoPath.Replace("\\", "/");
+            Logs logs = new Logs(path);
+            
             foreach(var item in logs.GitCommitsList)
             {
                 LogsText.Text += "Commit: " + item.CommitHash + "\nAuthor" + item.Author + "\nDate" + item.Date + "\n";
@@ -47,12 +48,13 @@ namespace GitLogGUI
             LogsText.Text = "";
             if (AfterDatePicker.SelectedDate != DateTime.MinValue)
             {
-                Logs logs = new Logs();
-                logs.Path = Config.RepoPath.Replace("\\", "/");
+                string path = Config.RepoPath.Replace("\\", "/");
+                Logs logs = new Logs(path);
+                
                 logs.StartDate = AfterDatePicker.SelectedDate ?? DateTime.MinValue;
                 TimeSpan ts = new TimeSpan(Convert.ToInt16(DateHours.Text), Convert.ToInt16(DateMinutes.Text), 0);
                 logs.StartDate += ts; 
-                foreach (var item in logs.GitCommitListAfterDate)
+                foreach (var item in logs.GitCommitsList)
                 {
                     LogsText.Text += "Commit: " + item.CommitHash + "\nAuthor" + item.Author + "\nDate" + item.Date + "\n";
                     foreach (var file in item.Files)

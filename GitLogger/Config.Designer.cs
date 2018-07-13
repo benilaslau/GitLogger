@@ -70,7 +70,7 @@ namespace GitLogger {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\blaslau\source\repos\CalculatorSolution\.
+        ///   Looks up a localized string similar to C:\Users\blaslau\source\repos\CalculatorSolution.
         /// </summary>
         public static string RepoPath {
             get {

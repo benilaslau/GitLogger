@@ -21,6 +21,7 @@ namespace GitLogger.Util
             return output;
         }
 
+
         public static List<GitCommits> ParseLogs(string log)
         {
             GitCommits commit = null;
@@ -29,7 +30,7 @@ namespace GitLogger.Util
             {
                 do
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
 
                     if (line.StartsWith("commit "))
                     {
@@ -37,24 +38,15 @@ namespace GitLogger.Util
                             commits.Add(commit);
                         commit = new GitCommits();
                         commit.CommitHash = line.Split(' ')[1];
-                    }
-
-                    if (line.StartsWith("Author:"))
-                    {
+                        line = reader.ReadLine();
                         commit.Author = line.Split(' ')[1] + " " + line.Split(' ')[2];
-                    }
-
-                    if (line.StartsWith("Date:"))
-                    {
-                        string gitDate = line.After("Date:   ");
-                        commit.Date = FormateGitDate(gitDate);
-                    }
-
-                    if (line.Length > 0 && line[3] == ' ')
-                    {
+                        line = reader.ReadLine();
+                        commit.Date = FormateGitDate(line.After("Date:   "));
+                        line = reader.ReadLine();
+                        line = reader.ReadLine();
                         commit.Message = line.After("    ");
                     }
-                    if (line.Length > 1 && Char.IsLetter(line[0]) && line[1] == '\t')
+                    else if (line.Length > 1 && Char.IsLetter(line[0]) && line[1] == '\t')
                     {
                         var status = line.Split('\t')[0];
                         var file = line.Split('\t')[1];
@@ -83,15 +75,23 @@ namespace GitLogger.Util
         #region private methods
         private static string RunProcess(string command)
         {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = Config.GitExectuable.Replace("\\", "/"); 
-            p.StartInfo.Arguments = command;
-            p.Start();
-            // Read the output stream first and then wait.
-            string output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
+            string output = String.Empty;
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = Config.GitExectuable.Replace("\\", "/");
+                p.StartInfo.Arguments = command;
+                p.Start();
+                // Read the output stream first and then wait.
+                output = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return output;
         }
 
